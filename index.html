@@ -91,68 +91,47 @@
             margin-bottom: 20px;
         }
     </style>
-</head>
-<body>
-    <h1>Certificate Portal</h1>
-    <form id="loginForm">
-        <label for="certificateId">Certificate ID:</label>
-        <input type="text" id="certificateId" required>
-        <label for="password">Password:</label>
-        <div style="position: relative;">
-            <input type="password" id="password" required>
-            <input type="checkbox" class="show-password" id="showPassword" onchange="togglePasswordVisibility()">
-            <label for="showPassword" style="position: absolute; top: 8px; right: 10px; cursor: pointer;">Show Password</label>
-        </div>
-        <button type="button" onclick="login()">Login</button>
-    </form>
-
-    <div id="certificateList" style="display: none;">
-        <h2>Your Certificates</h2>
-        <ul id="certificateLinks"></ul>
-    </div>
-
-    <div id="certificates" style="display: none;"></div>
 
     <script>
-           const users = [
-        {
-            certificateId: '900005',
-            password: 'MONISHA MARTINA', // Updated name
-            certificates: [
-                { filename: 'monisha_certificate.jpg', image: 'https://cdn.discordapp.com/attachments/1184793206802620527/1188058153254916107/a73f05ad-e851-4a43-a342-d7a3128ea1c9.jfif' },
-            ],
-        },
-        {
-            certificateId: '900002',
-            password: 'LASHMI PRIYA', // Updated name
-            certificates: [
-                { filename: 'lashmi_certificate1.jpg', image: 'https://cdn.discordapp.com/attachments/1184793206802620527/1188058151824666654/e5f21e35-83f4-470c-9a8f-ad2a8125089c.jfif' },
-                { filename: 'lashmi_certificate2.jpg', image: 'https://cdn.discordapp.com/attachments/1184793206802620527/1188058151824666654/e5f21e35-83f4-470c-9a8f-ad2a8125089c.jfif' },
-            ],
-        },
-        {
-            certificateId: '900001',
-            password: 'SELVA MARY PRIYA', // Updated name
-            certificates: [
-                { filename: 'selva_mary_certificate.jpg', image: 'https://cdn.discordapp.com/attachments/1184793206802620527/1188058151426199572/Certificate-_Selva_Merry_Priya_A1.jfif' },
-            ],
-        },
-        {
-            certificateId: '900004',
-            password: 'G.HARI PRAKASH', // Updated name
-            certificates: [
-                { filename: 'hari_certificate1.jpg', image: 'https://cdn.discordapp.com/attachments/1184793206802620527/1188058152609005659/faa2d8d3-b16a-43ef-af0e-4be919eabd0e.jfif' },
-                { filename: 'hari_certificate2.jpg', image: 'https://cdn.discordapp.com/attachments/1184793206802620527/1188058153632415775/Certificate_-_G_Hari_Prakash_A2.jfif' },
-            ],
-        },
-        {
-            certificateId: '900003',
-            password: 'LAKSHMI PRIYA', // Updated name
-            certificates: [
-                { filename: 'lakshmi_certificate.jpg', image: 'https://cdn.discordapp.com/attachments/1184793206802620527/1188058152227311646/f036a4c3-0d4f-472d-ae6e-f1b23a50ab4d.jfif' },
-            ],
-        },
-    ];
+        const users = [
+            {
+                certificateId: '900005',
+                password: 'MONISHA MARTINA', // Updated name
+                certificates: [
+                    { filename: 'monisha_certificate.jpg', image: 'https://cdn.discordapp.com/attachments/1184793206802620527/1188058153254916107/a73f05ad-e851-4a43-a342-d7a3128ea1c9.jfif' },
+                ],
+            },
+            {
+                certificateId: '900002',
+                password: 'LASHMI PRIYA', // Updated name
+                certificates: [
+                    { filename: 'lashmi_certificate1.jpg', image: 'https://cdn.discordapp.com/attachments/1184793206802620527/1188058151824666654/e5f21e35-83f4-470c-9a8f-ad2a8125089c.jfif' },
+                    { filename: 'lashmi_certificate2.jpg', image: 'https://cdn.discordapp.com/attachments/1184793206802620527/1188058152906797116/fb258193-44ed-4273-940f-b9cc16519dac.jfif?ex=65992460&is=6586af60&hm=0b249fcddada1d59b0f3d5d71f02b3c5775760753c3f41358712810d49f76da6' },
+                ],
+            },
+            {
+                certificateId: '900001',
+                password: 'SELVA MARY PRIYA', // Updated name
+                certificates: [
+                    { filename: 'selva_mary_certificate.jpg', image: 'https://cdn.discordapp.com/attachments/1184793206802620527/1188058151426199572/Certificate-_Selva_Merry_Priya_A1.jfif' },
+                ],
+            },
+            {
+                certificateId: '900004',
+                password: 'G.HARI PRAKASH', // Updated name
+                certificates: [
+                    { filename: 'hari_certificate1.jpg', image: 'https://cdn.discordapp.com/attachments/1184793206802620527/1188058152609005659/faa2d8d3-b16a-43ef-af0e-4be919eabd0e.jfif' },
+                    { filename: 'hari_certificate2.jpg', image: 'https://cdn.discordapp.com/attachments/1184793206802620527/1188058153632415775/Certificate_-_G_Hari_Prakash_A2.jfif' },
+                ],
+            },
+            {
+                certificateId: '900003',
+                password: 'LAKSHMI PRIYA', // Updated name
+                certificates: [
+                    { filename: 'lakshmi_certificate.jpg', image: 'https://cdn.discordapp.com/attachments/1184793206802620527/1188058152227311646/f036a4c3-0d4f-472d-ae6e-f1b23a50ab4d.jfif' },
+                ],
+            },
+        ];
 
         function login() {
             const certificateId = document.getElementById('certificateId').value;
@@ -217,5 +196,26 @@
             passwordInput.type = showPasswordCheckbox.checked ? 'text' : 'password';
         }
     </script>
+</head>
+<body>
+    <h1>Certificate Portal</h1>
+    <form id="loginForm">
+        <label for="certificateId">Certificate ID:</label>
+        <input type="text" id="certificateId" required>
+        <label for="password">Password:</label>
+        <div style="position: relative;">
+            <input type="password" id="password" required>
+            <input type="checkbox" class="show-password" id="showPassword" onchange="togglePasswordVisibility()">
+            <label for="showPassword" style="position: absolute; top: 8px; right: 10px; cursor: pointer;">Show Password</label>
+        </div>
+        <button type="button" onclick="login()">Login</button>
+    </form>
+
+    <div id="certificateList" style="display: none;">
+        <h2>Your Certificates</h2>
+        <ul id="certificateLinks"></ul>
+    </div>
+
+    <div id="certificates" style="display: none;"></div>
 </body>
 </html>
