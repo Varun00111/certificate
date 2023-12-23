@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate Portal</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        form, #certificateList, #certificates {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            text-align: center;
+        }
+
+        li {
+            margin: 10px 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .download-button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .download-button:hover {
+            background-color: #0056b3;
+        }
+
+        .certificate-image {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Certificate Portal</h1>
+    <form id="loginForm">
+        <label for="certificateId">Certificate ID:</label>
+        <input type="text" id="certificateId" required>
+        <label for="password">Password:</label>
+        <div style="position: relative;">
+            <input type="password" id="password" required>
+            <input type="checkbox" class="show-password" id="showPassword" onchange="togglePasswordVisibility()">
+            <label for="showPassword" style="position: absolute; top: 8px; right: 10px; cursor: pointer;">Show Password</label>
+        </div>
+        <button type="button" onclick="login()">Login</button>
+    </form>
+
+    <div id="certificateList" style="display: none;">
+        <h2>Your Certificates</h2>
+        <ul id="certificateLinks"></ul>
+    </div>
+
+    <div id="certificates" style="display: none;"></div>
+
+    <script>
+        const users = [
+            {
+                certificateId: '900005',
+                password: 'MONISHA',
+                certificates: [
+                    { filename: 'monisha_certificate.jpg', image: 'https://cdn.discordapp.com/attachments/1184793206802620527/1188058153254916107/a73f05ad-e851-4a43-a342-d7a3128ea1c9.jfif' },
+                ],
+            },
+            {
+                certificateId: '900002',
+                password: 'LASHMI',
+                certificates: [
+                    { filename: 'lashmi_certificate1.jpg', image: 'https://cdn.discordapp.com/attachments/1184793206802620527/1188058151824666654/e5f21e35-83f4-470c-9a8f-ad2a8125089c.jfif' },
+                    { filename: 'lashmi_certificate2.jpg', image: 'https://cdn.discordapp.com/attachments/1184793206802620527/1188058151824666654/e5f21e35-83f4-470c-9a8f-ad2a8125089c.jfif' },
+                ],
+            },
+            {
+                certificateId: '900001',
+                password: 'SELVA MARY',
+                certificates: [
+                    { filename: 'selva_mary_certificate.jpg', image: 'https://cdn.discordapp.com/attachments/1184793206802620527/1188058151426199572/Certificate-_Selva_Merry_Priya_A1.jfif' },
+                ],
+            },
+            {
+                certificateId: '900004',
+                password: 'G.HARI',
+                certificates: [
+                    { filename: 'hari_certificate1.jpg', image: 'https://cdn.discordapp.com/attachments/1184793206802620527/1188058152609005659/faa2d8d3-b16a-43ef-af0e-4be919eabd0e.jfif' },
+                    { filename: 'hari_certificate2.jpg', image: 'https://cdn.discordapp.com/attachments/1184793206802620527/1188058153632415775/Certificate_-_G_Hari_Prakash_A2.jfif' },
+                ],
+            },
+            {
+                certificateId: '900003',
+                password: 'LAKSHMI',
+                certificates: [
+                    { filename: 'lakshmi_certificate.jpg', image: 'https://cdn.discordapp.com/attachments/1184793206802620527/1188058152227311646/f036a4c3-0d4f-472d-ae6e-f1b23a50ab4d.jfif' },
+                ],
+            },
+        ];
+
+        function login() {
+            const certificateId = document.getElementById('certificateId').value;
+            const password = document.getElementById('password').value;
+
+            const user = users.find(u => u.certificateId === certificateId && u.password === password);
+
+            if (user) {
+                const certificateList = document.getElementById('certificateList');
+                const certificateLinks = document.getElementById('certificateLinks');
+                const certificatesContainer = document.getElementById('certificates');
+
+                certificateLinks.innerHTML = '';
+                certificatesContainer.innerHTML = '';
+
+                user.certificates.forEach((certificate, index) => {
+                    const listItem = document.createElement('li');
+                    const link = document.createElement('a');
+                    link.href = certificate.image;
+                    link.target = '_blank'; // Open link in a new tab
+                    link.textContent = `Certificate ${index + 1} for ${certificateId}`;
+
+                    const certificateImage = document.createElement('img');
+                    certificateImage.className = 'certificate-image';
+                    certificateImage.src = certificate.image;
+                    certificateImage.alt = `Certificate ${index + 1} for ${certificateId}`;
+
+                    const downloadButton = document.createElement('button');
+                    downloadButton.className = 'download-button';
+                    downloadButton.textContent = 'Download';
+                    downloadButton.onclick = function() {
+                        downloadCertificate(certificate.image, certificate.filename);
+                    };
+
+                    listItem.appendChild(link);
+                    listItem.appendChild(certificateImage);
+                    listItem.appendChild(downloadButton);
+
+                    certificateLinks.appendChild(listItem);
+                });
+
+                certificateList.style.display = 'block';
+                certificatesContainer.style.display = 'block';
+            } else {
+                alert('Login failed. Please check your credentials.');
+            }
+        }
+
+        function downloadCertificate(url, filename) {
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            const showPasswordCheckbox = document.getElementById('showPassword');
+
+            passwordInput.type = showPasswordCheckbox.checked ? 'text' : 'password';
+        }
+    </script>
+</body>
+</html>
